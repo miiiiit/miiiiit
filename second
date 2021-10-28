@@ -1,33 +1,65 @@
+def draw_table(table):
+    число=0
+    while (число<9):
+        for a in range (3):
+            print ("-------------")
+            string=""
+            for i in range (13):
+                if (i%4==0):
+                    string=string+ ("|")
+                    continue
+                if (i%2==1):
+                    string=string+ (" ")
+                    continue
+                if (i%4==2):
+                    число=число+1
+                    if table[число]==None:
+                        string=string+str(число)
+                    else:
+                        string=string+table[число]
+            print (string)
+    print("-------------")
+
+def check_table(table,vybor_igroka):
+    if ((table[1] == table[2] == table[3] and table [1]!=None) or
+    (table[4] == table[5] == table[6] and table [4]!=None) or
+    (table[7] == table[8] == table[9] and table [7]!=None) or
+    (table[1] == table[4] == table[7] and table [1]!=None) or
+    (table[2] == table[5] == table[8] and table [2]!=None) or
+    (table[3] == table[6] == table[9] and table [3]!=None) or
+    (table[1] == table[5] == table[9] and table [1]!=None) or
+    (table[3] == table[5] == table[7] and table [3]!=None)):
+        
+
+
+Hody = dict.fromkeys([1,2,3,4,5,6,7,8,9])
+draw_table(Hody)
+
 t=False
-print('x or o')
+print('x или o?')
 while (t==False):
-    a= input ('напиши')
-    if (a=="x" or a=="0"):
+    a= input ('напиши:')
+    if (a=="x" or a=="o"):
         t==True
         break
-    print ('x или 0 введи затупок')
-end=2
+    print ('x или o введи')
+
+for i in range(9):
+    xod = int(input("Введите ход "))
+    while (Hody[xod]!=None):
+        xod = int(input("Введи пустой номер "))
+    Hody[xod]=a
+    draw_table(Hody)
+    if a=='x':
+        a='o'
+    else:
+        a='x'
+
+end=1
 if (end!=0):
     if (end==1):
-        print ('харош')
+        print ('Молодец')
     if (end==2):
-        print ('2 дауна')
+        print ('Ты проиграл')
     if (end==3):
-        print ('лошня')
-ogre=0
-while (ogre<9):
-    for a in range (3):
-        print ("-------------")
-        string=""
-        for i in range (13):
-            if (i%4==0):
-                string=string+ ("|")
-                continue
-            if (i%2==1):
-                string=string+ (" ")
-                continue
-            if (i%4==2):
-                ogre=ogre+1
-                string=string+str(ogre)
-        print (string)
-
+        print ('Ничья')
