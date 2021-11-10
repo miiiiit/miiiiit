@@ -1,6 +1,8 @@
+import random
+
 def draw_table(table):
-    число=0
-    while (число<9):
+    chislo=0
+    while (chislo<9):
         for a in range (3):
             print ("-------------")
             string=""
@@ -12,54 +14,77 @@ def draw_table(table):
                     string=string+ (" ")
                     continue
                 if (i%4==2):
-                    число=число+1
-                    if table[число]==None:
-                        string=string+str(число)
+                    chislo=chislo+1
+                    if table[chislo]==None:
+                        string=string+str(chislo)
                     else:
-                        string=string+table[число]
+                        string=string+table[chislo]
             print (string)
-    print("-------------")
+    print ("-------------")
 
-def check_table(table,vybor_igroka):
-    if ((table[1] == table[2] == table[3] and table [1]!=None) or
-    (table[4] == table[5] == table[6] and table [4]!=None) or
-    (table[7] == table[8] == table[9] and table [7]!=None) or
-    (table[1] == table[4] == table[7] and table [1]!=None) or
-    (table[2] == table[5] == table[8] and table [2]!=None) or
-    (table[3] == table[6] == table[9] and table [3]!=None) or
-    (table[1] == table[5] == table[9] and table [1]!=None) or
-    (table[3] == table[5] == table[7] and table [3]!=None)):
-        
+def check_table(table,vybor_igroka,tekushiy_vybor):
+    Flag1= ( vybor_igroka == tekushiy_vybor )
 
+    Flag2= False
+    if ((table[1] == table[2] == table[3] and table[1]!=None) or
+    (table[4] == table[5] == table[6] and table[4]!=None) or
+    (table[7] == table[8] == table[9] and table[7]!=None) or
+    (table[1] == table[4] == table[7] and table[7]!=None) or
+    (table[2] == table[5] == table[8] and table[5]!=None) or
+    (table[3] == table[6] == table[9] and table[3]!=None) or
+    (table[1] == table[5] == table[9] and table[1]!=None) or
+    (table[3] == table[5] == table[7] and table[3]!=None)):
+        Flag2=True
+    if (Flag1==True and Flag2==True):
+        return 1
+    if (Flag1==False and Flag2==True):
+        return 2
+    Flag3=0
+    for i in table:
+        if table[i]==None:
+            Flag3=Flag3+1
+    if Flag3==0:
+        return 3
+    else:
+        return 0
 
 Hody = dict.fromkeys([1,2,3,4,5,6,7,8,9])
 draw_table(Hody)
 
 t=False
-print('x или o?')
+print('X or O')
 while (t==False):
-    a= input ('напиши:')
-    if (a=="x" or a=="o"):
+    vybor= input ('Напиши:')
+    if (vybor=="x" or vybor=="o"):
         t==True
         break
     print ('x или o введи')
+vybor_igroka=vybor
 
 for i in range(9):
-    xod = int(input("Введите ход "))
-    while (Hody[xod]!=None):
-        xod = int(input("Введи пустой номер "))
-    Hody[xod]=a
-    draw_table(Hody)
-    if a=='x':
-        a='o'
+    if (vybor==vybor_igroka):
+        xod = int(input("Введите ход "))
+        while (Hody[xod]!=None):
+            xod = int(input("Введите номер пустой клетки "))
     else:
-        a='x'
+        xod = random.randint(1,9)
+        while (Hody[xod]!=None):
+            xod = random.randint(1,9)
 
-end=1
-if (end!=0):
-    if (end==1):
-        print ('Молодец')
-    if (end==2):
-        print ('Ты проиграл')
-    if (end==3):
-        print ('Ничья')
+    Hody[xod]=vybor
+    draw_table(Hody)
+    end = check_table(Hody,vybor_igroka,vybor)
+    if (end!=0):
+        if (end==1):
+            print ('Выиграл')
+            break
+        if (end==2):
+            print ('Проиграл')
+            break
+        if (end==3):
+            print ('Ничья')
+            break
+    if vybor=='x':
+        vybor='o'
+    else:
+        vybor='x'
