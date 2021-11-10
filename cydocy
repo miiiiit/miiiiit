@@ -1,0 +1,18 @@
+def draw_table():
+    chislo='0'
+    for i in range(3):
+        for a in range (3):
+            print ("-------------------------------------")
+            string=""
+            for i in range (37):
+                if (i%4==0):
+                    string=string+ ("|")
+                    continue
+                if (i%2==1):
+                    string=string+ (" ")
+                    continue
+                if (i%4==2):
+                    string=string+chislo
+            print (string)
+    print ("-------------------------------------")
+draw_table()
